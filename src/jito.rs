@@ -55,7 +55,7 @@ where
 
     // Example usage: make a request using the next URL in round-robin manner
     let url = ROUND_ROBIN.next_url();
-    info!("using jito engine url {}", url);
+    debug!("using jito engine url {}", url);
 
     let response = reqwest::Client::new()
         .post(&url)

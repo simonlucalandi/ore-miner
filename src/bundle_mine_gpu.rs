@@ -403,7 +403,7 @@ impl SendBundleTask {
             let material_to_build_bundle = mining_results.chunks(5).zip(accounts.signers.chunks(5));
             let send_bundle_time = Instant::now();
 
-            info!(accounts = ?accounts.pubkey, %tipper, "building bundle");
+            debug!(accounts = ?accounts.pubkey, %tipper, "building bundle");
 
             for bus in &self.available_bus {
                 let mut bundle = Vec::with_capacity(5);
