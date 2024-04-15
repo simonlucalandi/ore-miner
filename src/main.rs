@@ -91,7 +91,7 @@ pub enum Command {
 impl Miner {
     pub fn init_pretty_env_logger() {
         env_logger::Builder::new()
-            .filter_level(log::LevelFilter::Info)
+            .filter_level(log::LevelFilter::Debug)
             .parse_default_env()
             .init();
     }
