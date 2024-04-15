@@ -325,6 +325,7 @@ impl Accounts {
                 cost = format_reward!(cost),
                 tip,
                 tx.first = ?landed_tx.first().unwrap(),
+                slot = send_at_slot,
                 "🙌 bundle mined",
             );
         } else {
@@ -340,6 +341,7 @@ impl Accounts {
                 tips.p25 = tips.p25(),
                 tips.p50 = tips.p50(),
                 tips.p75 = tips.p75(),
+                slot = send_at_slot,
                 "💩 bundle dropped"
             );
         }
