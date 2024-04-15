@@ -6,7 +6,7 @@ use serde_json::{json, Value};
 use solana_sdk::{pubkey::Pubkey, signature::Signature, transaction::Transaction};
 use solana_transaction_status::{Encodable, EncodedTransaction, UiTransactionEncoding};
 use tokio::{sync::RwLock, task::JoinHandle};
-use tracing::info;
+use tracing::{info, debug};
 use std::sync::{Mutex};
 use crate::{constant, Miner};
 use lazy_static::lazy_static;
