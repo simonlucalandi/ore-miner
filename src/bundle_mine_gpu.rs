@@ -334,6 +334,7 @@ impl Accounts {
                 acc.id = self.id,
                 confirm = format_duration!(sent_at_time.elapsed()),
                 rewards = format_reward!(rewards),
+                cost = format_reward!(cost),
                 tip,
                 tips.p25 = tips.p25(),
                 tips.p50 = tips.p50(),
