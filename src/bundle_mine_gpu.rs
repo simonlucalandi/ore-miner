@@ -325,7 +325,7 @@ impl Accounts {
                 cost = format_reward!(cost),
                 tip,
                 tx.first = ?landed_tx.first().unwrap(),
-                "bundle mined",
+                "🙌 bundle mined",
             );
         } else {
             let tips = *tips.read().await;
@@ -336,7 +336,7 @@ impl Accounts {
                 tip,
                 tips.p25 = tips.p25(),
                 tips.p50 = tips.p50(),
-                "bundle dropped"
+                "💩 bundle dropped"
             );
         }
 
