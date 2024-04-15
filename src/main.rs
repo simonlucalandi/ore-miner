@@ -38,6 +38,7 @@ mod benchmark_rpc;
 mod bundle_mine;
 mod bundle_mine_gpu;
 mod claim;
+mod balance;
 mod constant;
 mod generate_wallet;
 mod jito;
@@ -50,6 +51,7 @@ async fn main() {
     let miner = Miner::parse();
 
     match &miner.command {
+        Command::Balance(args) => miner.balance(args).await,
         Command::Claim(args) => miner.claim(args).await,
         Command::BundleMine(args) => miner.bundle_mine(args).await,
         Command::BundleMineGpu(args) => miner.bundle_mine_gpu(args).await,
@@ -75,6 +77,7 @@ pub struct Miner {
 
 #[derive(Subcommand, Debug, Clone)]
 pub enum Command {
+    Balance(crate::balance::BalanceArgs),
     Claim(crate::claim::ClaimArgs),
     BundleMine(crate::bundle_mine::BundleMineArgs),
     BundleMineGpu(crate::bundle_mine_gpu::BundleMineGpuArgs),
