@@ -329,6 +329,7 @@ impl Accounts {
             );
         } else {
             let tips = *tips.read().await;
+            let cost = 25 * constant::FEE_PER_SIGNER + tip;
 
             warn!(
                 acc.id = self.id,
