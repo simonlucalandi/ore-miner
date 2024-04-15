@@ -269,7 +269,7 @@ impl Accounts {
     }
 
     pub const fn size() -> usize {
-        25
+        5
     }
 
     #[allow(clippy::too_many_arguments)]
