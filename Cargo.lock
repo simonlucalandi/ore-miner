@@ -2635,6 +2635,7 @@ dependencies = [
  "eyre",
  "futures-util",
  "itertools 0.12.1",
+ "lazy_static",
  "log",
  "ore-program",
  "rand 0.8.5",

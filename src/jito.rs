@@ -7,20 +7,58 @@ use solana_sdk::{pubkey::Pubkey, signature::Signature, transaction::Transaction}
 use solana_transaction_status::{Encodable, EncodedTransaction, UiTransactionEncoding};
 use tokio::{sync::RwLock, task::JoinHandle};
 use tracing::info;
-
+use std::sync::{Mutex};
 use crate::{constant, Miner};
+use lazy_static::lazy_static;
 
 #[derive(Debug, Deserialize)]
 pub struct JitoResponse<T> {
     pub result: T,
 }
 
+struct RoundRobin {
+    urls: Vec<String>,
+    index: Mutex<usize>,
+}
+
+impl RoundRobin {
+    fn new(urls: Vec<String>) -> Self {
+        Self {
+            urls,
+            index: Mutex::new(0),
+        }
+    }
+
+    fn next_url(&self) -> String {
+        let mut index = self.index.lock().unwrap();
+        let url = self.urls[*index].clone();
+        *index = (*index + 1) % self.urls.len();
+        url
+    }
+}
+
+// Create a static instance of RoundRobin to share between requests
+lazy_static! {
+    static ref ROUND_ROBIN: Arc<RoundRobin> = Arc::new(RoundRobin::new(vec![
+        "https://ny.mainnet.block-engine.jito.wtf/api/v1/bundles".to_string(),
+        "https://amsterdam.mainnet.block-engine.jito.wtf/api/v1/bundles".to_string(),
+        "https://frankfurt.mainnet.block-engine.jito.wtf/api/v1/bundles".to_string(),
+        "https://tokyo.mainnet.block-engine.jito.wtf/api/v1/bundles".to_string(),
+        // Add more URLs as needed
+    ]));
+}
+
 async fn make_jito_request<T>(method: &'static str, params: Value) -> eyre::Result<T>
 where
     T: de::DeserializeOwned,
 {
+
+    // Example usage: make a request using the next URL in round-robin manner
+    let url = ROUND_ROBIN.next_url();
+    info!("using jito engine url {}", url);
+
     let response = reqwest::Client::new()
-        .post("https://ny.mainnet.block-engine.jito.wtf/api/v1/bundles")
+        .post(&url)
         .header("Content-Type", "application/json")
         .json(&json!({"jsonrpc": "2.0", "id": 1, "method": method, "params": params}))
         .send()
