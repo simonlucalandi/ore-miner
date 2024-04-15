@@ -333,7 +333,6 @@ impl Accounts {
             warn!(
                 acc.id = self.id,
                 confirm = format_duration!(sent_at_time.elapsed()),
-                %tipper,
                 tip,
                 tips.p25 = tips.p25(),
                 tips.p50 = tips.p50(),
