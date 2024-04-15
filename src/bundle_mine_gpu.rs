@@ -333,6 +333,7 @@ impl Accounts {
             warn!(
                 acc.id = self.id,
                 confirm = format_duration!(sent_at_time.elapsed()),
+                %tipper,
                 tip,
                 tips.p25 = tips.p25(),
                 tips.p50 = tips.p50(),
@@ -366,12 +367,12 @@ impl SendBundleTask {
         let tips_now = *self.tips.read().await;
 
         let tip = if self.max_tip > 0 {
-            //let p50 = tips_now.p50();
+            let p50 = tips_now.p50();
             let p75 = tips_now.p75();
             if p75== 0 {
                 self.tip
             } else {
-                let tip = p75 + 1;
+                let tip = (p75 + p50)/2;
                 tip.max(50000).min(self.max_tip)
             }
         } else {
@@ -452,9 +453,11 @@ impl SendBundleTask {
             info!(
                 acc.id = accounts.id,
                 mining = format_duration!(self.mining_duration),
+                %tipper,
                 tip,
                 tip.p25 = tips_now.p25(),
                 tip.p50 = tips_now.p50(),
+                tip.p75 = tips_now.p75(),
                 slot = self.slot,
                 "bundles sent"
             );
