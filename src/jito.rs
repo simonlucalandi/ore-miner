@@ -131,6 +131,10 @@ pub struct JitoTips {
 }
 
 impl JitoTips {
+    pub fn p75(&self) -> u64 {
+        (self.p75_landed * 1e9f64) as u64
+    }
+
     pub fn p50(&self) -> u64 {
         (self.p50_landed * 1e9f64) as u64
     }

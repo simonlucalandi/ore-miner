@@ -336,6 +336,7 @@ impl Accounts {
                 tip,
                 tips.p25 = tips.p25(),
                 tips.p50 = tips.p50(),
+                tips.p75 = tips.p75(),
                 "💩 bundle dropped"
             );
         }
@@ -365,11 +366,12 @@ impl SendBundleTask {
         let tips_now = *self.tips.read().await;
 
         let tip = if self.max_tip > 0 {
-            let p50 = tips_now.p50();
-            if p50 == 0 {
+            //let p50 = tips_now.p50();
+            let p75 = tips_now.p75();
+            if p75== 0 {
                 self.tip
             } else {
-                let tip = p50 + 1;
+                let tip = p75 + 1;
                 tip.max(50000).min(self.max_tip)
             }
         } else {
