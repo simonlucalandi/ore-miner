@@ -269,7 +269,7 @@ impl Accounts {
     }
 
     pub const fn size() -> usize {
-        50
+        25
     }
 
     #[allow(clippy::too_many_arguments)]
@@ -371,8 +371,14 @@ impl SendBundleTask {
             if p75== 0 {
                 self.tip
             } else {
-                let tip = (p75 + p50)/2;
-                tip.max(50000).min(self.max_tip)
+                //let tip = (p75 + p50)/2;
+
+                let tip: u64 = p50;
+                let tip_float = tip as f64;
+                let tip_10_percent = (tip_float * 0.10) as u64;
+                let total_tip = tip + tip_10_percent;
+
+                total_tip.max(50000).min(self.max_tip)
             }
         } else {
             self.tip
