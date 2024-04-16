@@ -374,25 +374,25 @@ impl SendBundleTask {
         let tips_now = *self.tips.read().await;
 
         let tip = if self.max_tip > 0 {
-           // let p50 = tips_now.p50();
-            let p75 = tips_now.p75();
-            if p75== 0 {
+            let p50 = tips_now.p50();
+            //let p75 = tips_now.p75();
+            if p50== 0 {
                 self.tip
             } else {
                 
                 //let tip = (p75 + p50)/2;
-/* 
+
                 let tip: u64 = p50;
                 let tip_float = tip as f64;
                 let tip_10_percent = (tip_float * 0.10) as u64;
                 let total_tip = tip + tip_10_percent;
-*/
 
+/* 
                 let tip: u64 = p75;
                 let tip_float = tip as f64;
                 let tip_10_percent = (tip_float * 0.10) as u64;
                 let total_tip = tip - tip_10_percent;
-
+*/
                 total_tip.max(50000).min(self.max_tip)
             }
         } else {
