@@ -40,10 +40,10 @@ impl RoundRobin {
 // Create a static instance of RoundRobin to share between requests
 lazy_static! {
     static ref ROUND_ROBIN: Arc<RoundRobin> = Arc::new(RoundRobin::new(vec![
-      //  "https://ny.mainnet.block-engine.jito.wtf/api/v1/bundles".to_string(),
-      //  "https://amsterdam.mainnet.block-engine.jito.wtf/api/v1/bundles".to_string(),
-      //  "https://frankfurt.mainnet.block-engine.jito.wtf/api/v1/bundles".to_string(),
-        "https://tokyo.mainnet.block-engine.jito.wtf/api/v1/bundles".to_string(),
+       "https://ny.mainnet.block-engine.jito.wtf/api/v1/bundles".to_string(),
+        "https://amsterdam.mainnet.block-engine.jito.wtf/api/v1/bundles".to_string(),
+        "https://frankfurt.mainnet.block-engine.jito.wtf/api/v1/bundles".to_string(),
+       // "https://tokyo.mainnet.block-engine.jito.wtf/api/v1/bundles".to_string(),
         // Add more URLs as needed
     ]));
 }
