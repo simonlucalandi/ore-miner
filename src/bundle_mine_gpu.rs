@@ -374,7 +374,7 @@ impl SendBundleTask {
         let tips_now = *self.tips.read().await;
 
         let tip = if self.max_tip > 0 {
-            let p50 = tips_now.p50();
+           // let p50 = tips_now.p50();
             let p75 = tips_now.p75();
             if p75== 0 {
                 self.tip
